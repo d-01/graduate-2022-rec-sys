@@ -6,9 +6,12 @@
 
 ## Ссылки
 
-1. [youtube.com](https://youtu.be/sa9garlNMqk) | Запись выступления на onine защите (10 минут) + оценка эксперта
-1. [docs.google.com](https://docs.google.com/presentation/d/1O-XCPiwmiWjDH4tOqIDiFr0BeFfHtwzRgy7bX1L-IQY/edit?usp=sharing) | Презентация в Google Slides
-1. [kaggle.com](https://bit.ly/3e8PupT) | Использованный датасет: *Instacart dataset*
+1. [youtu.be/sa9garlNMqk](https://)
+   * Запись выступления на onine защите (10 минут) + оценка эксперта
+1. [docs.google.com/presentation/d/1O-X...-IQY](https://docs.google.com/presentation/d/1O-XCPiwmiWjDH4tOqIDiFr0BeFfHtwzRgy7bX1L-IQY/edit?usp=sharing)
+   * Презентация в Google Slides
+1. [kaggle.com](https://bit.ly/3e8PupT)
+   * Использованный датасет: *Instacart dataset*
 1. [Описание задачи](#task-description)
 1. [Итоги](#summary)
 
