@@ -1,28 +1,25 @@
 ![hero3-wide](images/hero3-wide.jpg)
 
-# Исследование моделей для рекомендательной системы online-гипермаркета
+# Рекомендательная система для онлайн-гипермаркета Instacart
 
 *Дипломная работа*
 
 ## Ссылки
 
-1. [youtu.be/sa9garlNMqk](https://)
-   * Запись выступления на onine защите (10 минут) + оценка эксперта
-1. [docs.google.com/presentation/d/1O-X...-IQY](https://docs.google.com/presentation/d/1O-XCPiwmiWjDH4tOqIDiFr0BeFfHtwzRgy7bX1L-IQY/edit?usp=sharing)
-   * Презентация в Google Slides
-1. [kaggle.com](https://bit.ly/3e8PupT)
-   * Использованный датасет: *Instacart dataset*
+1. [Запись](https://youtu.be/sa9garlNMqk) выступления на onine защите (10 минут) + оценка эксперта
+1. [Презентация](https://docs.google.com/presentation/d/1O-XCPiwmiWjDH4tOqIDiFr0BeFfHtwzRgy7bX1L-IQY/edit?usp=sharing) в Google Slides
+1. [Датасет](https://bit.ly/3e8PupT) на kaggle: *Instacart dataset*
 1. [Описание задачи](#task-description)
 1. [Итоги](#summary)
 
 ## Материалы для сдачи
 
 1. https://github.com/d-01/instacartlib
-   * Разработанная согласно заданию, программная библиотека-обертка для лучшей модели.
-1. https://colab.research.google.com/drive/1aFc-e_u5W-BrA7cdp6E2qZsgZtiJCGC8?usp=sharing
-   * Демо в Google Colab
+   * Разработанная, согласно техническому заданию, программная библиотека-обертка для ML модели.
+1. https://colab.research.google.com/drive/1aFc-e_u5W-BrA7cdp6E2qZsgZtiJCGC8
+   * Демонстрация программной библиотеки в Google Colab
 1. https://github.com/d-01/graduate-2022-rec-sys/blob/main/submission.csv
-   * Файл для оценки модели на платформе kaggle
+   * Файл для [оценки](https://bit.ly/3DJKvoG) модели на платформе kaggle
    * Private / public score: 0.31839 / 0.32082
 
 <a id="task-description"> </a>
