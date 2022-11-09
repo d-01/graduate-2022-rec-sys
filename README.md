@@ -2,17 +2,15 @@
 
 # Рекомендательная система для онлайн-гипермаркета Instacart
 
-*Дипломная работа*
-
 ## Ссылки
 
-1. [Запись](https://youtu.be/sa9garlNMqk) выступления на onine защите (10 минут) + оценка эксперта
+1. [Видео-презентация](https://youtu.be/sa9garlNMqk) (10 минут) + оценка эксперта
 1. [Презентация](https://docs.google.com/presentation/d/1O-XCPiwmiWjDH4tOqIDiFr0BeFfHtwzRgy7bX1L-IQY/edit?usp=sharing) в Google Slides
 1. [Датасет](https://bit.ly/3e8PupT) на kaggle: *Instacart dataset*
 1. [Описание задачи](#task-description)
 1. [Итоги](#summary)
 
-## Материалы для сдачи
+## Материалы проекта
 
 1. https://github.com/d-01/instacartlib
    * Разработанная, согласно техническому заданию, программная библиотека-обертка для ML модели.
