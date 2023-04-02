@@ -357,7 +357,9 @@ $$
 
 Задача сводится к задаче бинарной классификации: для каждой пары пользователь-товар (user-item) модель предсказывает значение `1`, если товар будет перезаказан (есть в целевой корзине), `0` если нет.
 
-Для этого необходимо сформировать два датасета: *тренировочный* для обучения классификатора и *тестовый*, на котором выполняется предсказание целевой корзины.
+Для этого необходимо подготовить два датасета: *тренировочный* для обучения классификатора и *тестовый*, на котором выполняется предсказание целевой корзины.
+
+В качестве негативных сэмплов используются товары из истории пользователя, не попавшие в целевую корзину.
 
 #### Тренировочный датасет
 
@@ -395,7 +397,7 @@ $$
 * `i_days_delay_global_mid` -- средний интервал между заказами товара Б среди всех пользователей;
   * Как часто пользователи в среднем перезаказывают товар Б.
 
-* `ui_total_buy_ratio` -- доля заказов пользователя А в которых есть товар Б;
+* `ui_total_buy_ratio` -- доля заказов пользователя А, в которых есть товар Б;
   * = 1.0 если товар Б есть в 10 из 10 заказов пользователя А.
   * = 0.2 если товар Б есть в 2 из 10 заказов пользователя А.
 
@@ -403,7 +405,7 @@ $$
   * Отражает активность пользователя.
 * `u_unique_items` -- число уникальных товаров в истории покупок пользователя А;
   * Отражает его склонность пробовать новые товары.
-* `ui_total_buy` -- число заказов пользователя А в которых есть товар Б;
+* `ui_total_buy` -- число заказов пользователя А, в которых есть товар Б;
 * `ui_readyness_mid_abs` -- отклонение пользователя А от привычного интервала перезаказа товара Б.
 
 Показатель `readyness` (готовность):
@@ -413,6 +415,8 @@ $$
 * Тогда `ui_readyness_mid = (ui_days_passed - ui_days_delay_mid)` = 2
   * Отрицательные значения = с последнего заказа прошло слишком мало времени, пользователь не готов купить товар.
   * Большое значение = прошло больше времени чем обычно, пользователь готов купить товар.
+
+[Полное описание](#feature-info-ru) всех признаков в приложении.
 
 #### Результаты
 
@@ -431,26 +435,26 @@ $$
 
 1. Одни и те же методы не подходят для разных типов товаров:
 
-   1. Фильмы, музыка, книжный магазин.
+   1. Фильмы, музыка, книжный магазин
 
       * Однократные покупки
       * Задача: коллаборативная фильтрация
-      * Рекомендации на основе похожих пользователей или товаров.
+      * Рекомендации на основе похожих пользователей или товаров
 
-   1. Гипермаркеты (еда, продовольственные товары).
+   1. Гипермаркеты (еда, продовольственные товары)
 
       * Периодические покупки
 
-      * Задача: генерация следующего набора элементов (NBR / NBP / Sets2sets).
-      * Простые модели: подсчет покупок, средний интервал между заказами.
+      * Задача: генерация следующего набора элементов (NBR / NBP / Sets2sets)
+      * Простые модели: подсчет покупок, средний интервал между заказами
 
-   1. Техника, услуги, одежда.
+   1. Техника, услуги, одежда
 
       * Смешанные покупки: однократные + периодические
 
-      * Задача: генерация следующего элемента последовательности (Seq2seq).
+      * Задача: генерация следующего элемента последовательности (Seq2seq)
 
-2. Коллаборативная фильтрация подходит для *рекомендаций* (фильмы, однократные покупки), но не подходит для *предсказания* периодических покупок.
+2. Коллаборативная фильтрация подходит для *рекомендаций* (фильмы, однократные покупки), но не подходит для *предсказания* периодических покупок
 
 ## Библиотека `instacartlib`
 
@@ -519,4 +523,62 @@ nbp_new.save_model('model_nbp.dump')
 * ≈1 мин. (CatBoost, GPU)
 
 Время генерации предсказаний: ≈2 сек.
+
+## Приложение
+
+<a id="feature-info-ru"></a>
+
+### Описание признаков
+
+(п. А = пользователь А; товар Б)
+
+- `u_n_orders`: число заказов п. А.
+- `ui_n_chances`: число заказов п. А после первой покупки товара Б (включительно).
+- `ui_total_buy`: число заказов товара Б пользователем А.
+- `ui_total_buy_ratio`: = `ui_total_buy / u_n_orders` доля заказов п. А в которых есть товар Б.
+- `ui_chance_buy_ratio`: = `ui_total_buy / u_n_chances` доля заказов п. А, в которых есть товар Б, после первой покупки товара Б.
+- `u_n_transactions`: число транзакций пользователя А.
+- `u_unique_items`: число уникальных товаров в истории п. А.
+- `u_order_size_mid`: средний размер корзины п. А.
+- `i_n_popularity`: число пользователей, купивших товар Б хотя бы раз.
+- `i_n_orders_mid`: среднее число заказов товара Б среди пользователей, купивших его хотя бы раз.
+- `ui_avg_cart_pos`: средняя позиция товара Б. в корзине пользователя А.
+- `ui_days_delay_max`: максимальная задержка (дней) между покупками товара Б пользователем А.
+- `ui_days_delay_mid`: медианная задержка (дней) между покупками товара Б пользователем А.
+- `i_days_delay_global_mid`: медианная задержка (дней) между покупками товара Б среди всех пользователей.
+- `ui_days_passed`: прогнозируемое число дней до следующего заказа пользователя А.
+- `ui_readyness_max`: дней до следующего заказа п. А сверх *своей* максимальной задержки между покупками товара Б. Пример:
+  - `readyness=10`: пользователь А не покупал товар Б больше 10 дней сверх *своей* обычной задержки.
+  - `readyness=-10`: пользователь А может "обойтись" без товара Б еще 10 дней.
+- `ui_readyness_max_abs`: модуль значения `readyness`. Большое значение сигнализирует о нетипичном отклонении в поведении пользователя относительно своего обычного поведения.
+- `ui_readyness_mid`: аналогично `ui_readyness_max` для медианы.
+- `ui_readyness_mid_abs`: аналогично `ui_readyness_max_abs` для медианы.
+- `ui_readyness_global_mid`: задержка п. А в покупке товара Б сверх *общей* задержки среди всех пользователей покупающих этот товар.
+- `ui_readyness_global_mid_abs`: модуль значения `ui_readyness_global_mid`. Большое значение сигнализирует о нетипичном отклонении в поведении пользователя относительно других пользователей.
+
+### Features description
+
+- `u_n_orders`: total number of orders made by user.
+- `ui_n_chances`: number of orders in which user A had a chance to buy item B. That is a number of orders following the order in which user A bought item B, including the order itself.
+- `ui_total_buy`: times user A bought item B.
+- `ui_total_buy_ratio`: = ui_total_buy / u_n_orders
+- `ui_chance_buy_ratio`: = ui_total_buy / u_n_chances
+- `u_n_transactions`: number of user's A transactions.
+- `u_unique_items`: number of unique items in user's A history.
+- `u_order_size_mid`: user's A average order size.
+- `i_n_popularity`: number of users who purchaised this item at least once.
+- `i_n_orders_mid`: number of purchaises on average across all users who purchaised this item at least once.
+- `avg_cart_pos`: position of item B in user's A cart on average.
+- `ui_days_delay_max`: the longest (in days) user A gone without buying item B.
+- `ui_days_delay_mid`: median number of days user A gone without buying item B.
+- `i_days_delay_global_mid`: median number of days any user gone without buying item B.
+- `ui_days_passed`: days passed since last order (prediction based on medium delay between user's orders).
+- `ui_readyness_max`: days passed exceeds max delay for particular item. Example:
+  - `readyness=10`: means user hasn't bought the item more then 10 days above his longest delay.
+  - `readyness=-10`: 10 days left until delay exceeds maximum delay, i.e. user probably can go longer without buying this item.
+- `ui_readyness_max_abs`: absolute value of readyness. The bigger the value the more unusual is delay.
+- `ui_readyness_mid`: days passed exceeds median delay for particular item.
+- `ui_readyness_mid_abs`: absolute value of `ui_readyness_mid`.
+- `ui_readyness_global_mid`: user readyness relative to global delay for particular item.
+- `ui_readyness_global_mid_abs`: absolute value of `ui_readyness_global_mid`.
 
